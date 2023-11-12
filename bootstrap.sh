@@ -16,6 +16,7 @@ deploy_k8s_cluster() {
 apply_manifests() {
   # Creates a namespace and initializes a service account with a long-lived token 
   kubectl get nodes | grep worker | awk '{print$1}' | xargs -I {} kubectl label node {} node-role.kubernetes.io/worker=worker --overwrite
+  kubectl create secret generic kubeadmin -n kube-system
   kubectl apply -f manifests/01-namespace.yaml
   kubectl apply -f manifests/02-service-account.yaml
   kubectl apply -f manifests/03-clusterrolebinding.yaml
