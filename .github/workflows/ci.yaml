@@ -20,11 +20,10 @@ jobs:
           cluster_name: playground
           config: manifests/kind.yaml
 
-      - name:
-        run: ./bootstrap.sh
+      - name: run
+        run: no | ./bootstrap.sh
 
       - name: bootstrap
         run: |
-
           cd karchit8cture
           python3 karchit8cture.py
