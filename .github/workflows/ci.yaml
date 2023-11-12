@@ -22,5 +22,5 @@ jobs:
 
       - name: bootstrap
         run: |
-          cd karchit8cture
+          cd testim
           python3 karchit8cture.py
