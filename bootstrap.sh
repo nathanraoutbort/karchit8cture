@@ -5,16 +5,17 @@ unset TOKEN
 unset K8S_HOST
 
 # Function to deploy Kubernetes cluster
-deploy_k8s_cluster() {
-  # Creating a kind cluster, according to a pre-defined kind.yaml config file 
-  kind create cluster --name playground --config manifests/kind.yaml 
-  sleep 10 
+# deploy_k8s_cluster() {
+#   # Creating a kind cluster, according to a pre-defined kind.yaml config file 
+#   kind create cluster --name playground --config manifests/kind.yaml 
+#   sleep 10 
 
-  # Labels nodes as they're bootstrapped with no worker node role 
-  kubectl get nodes | grep worker | awk '{print$1}' | xargs -I {} kubectl label node {} node-role.kubernetes.io/worker=worker --overwrite
-  sleep 5 
-}
+#   # Labels nodes as they're bootstrapped with no worker node role 
+#   kubectl get nodes | grep worker | awk '{print$1}' | xargs -I {} kubectl label node {} node-role.kubernetes.io/worker=worker --overwrite
+#   sleep 5 
+# }
 apply_manifests() {
+  kubectl get nodes | grep worker | awk '{print$1}' | xargs -I {} kubectl label node {} node-role.kubernetes.io/worker=worker --overwrite
   # Creates a namespace and initializes a service account with a long-lived token 
   kubectl apply -f manifests/01-namespace.yaml
   kubectl apply -f manifests/02-service-account.yaml
@@ -33,7 +34,7 @@ read -p "Do you want to deploy Kubernetes? (yes/no): " answer
 
 # Check if the argument is provided and is "yes" or "y"
 if [ "$answer" == "yes" ] || [ "$answer" == "y" ]; then
-  deploy_k8s_cluster
+  # deploy_k8s_cluster
   apply_manifests
   setup_kube_access
   echo "Instalttion finish successfully"
