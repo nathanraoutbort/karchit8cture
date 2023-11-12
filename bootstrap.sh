@@ -30,11 +30,11 @@ setup_kube_access() {
   sed -i "s#host: .*#host: ${K8S_HOST}#" karchit8cture/k8s_config.yaml
 }
 # Prompt the user
-read -p "Do you want to deploy Kubernetes? (yes/no): " answer
+answer="no"
 
 # Check if the argument is provided and is "yes" or "y"
 if [ "$answer" == "yes" ] || [ "$answer" == "y" ]; then
-  # deploy_k8s_cluster
+  deploy_k8s_cluster
   apply_manifests
   setup_kube_access
   echo "Instalttion finish successfully"

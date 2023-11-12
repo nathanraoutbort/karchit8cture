@@ -21,7 +21,7 @@ jobs:
           config: manifests/kind.yaml
 
       - name:
-        run: ./bootstrap
+        run: ./bootstrap.sh
 
       - name: bootstrap
         run: |
